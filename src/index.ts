@@ -7,7 +7,7 @@ export function matchTargetKeys (target: any, input: any, nest: string[] = []): 
     const newTarget = target[0] // use the first element as the target
     try {
       const output = input.map(element => {
-        return matchTargetKeys(newTarget, element, nestClone)
+        return matchTargetKeys(newTarget, element, [...nestClone, '']) // add '' to denote array
       })
       return output
     } catch (error) {
@@ -28,8 +28,10 @@ export function matchTargetKeys (target: any, input: any, nest: string[] = []): 
       return undefined
     }
   } else {
-    const isRoot = (nestClone.length === 1)
-    if (typeof target !== typeof input &&  isRoot) return undefined
+    const nestLength = nestClone.length
+    const isRoot = (nestLength === 1)
+    const isArray = nestClone[nestLength - 2] === ''
+    if (typeof target !== typeof input &&  (isRoot || isArray)) return undefined
     if (typeof target !== typeof input && !isRoot) throw new Error('different type')
 
     return input
