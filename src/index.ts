@@ -30,12 +30,11 @@ export function matchTargetKeys (target: any, input: any, nest: string[] = []): 
   } else {
     const nestLength = nestClone.length
     const isRoot = (nestLength === 1)
-    const isArray = nestClone[nestLength - 2] === ''
+    const isArray = nestClone[nestLength - 1] === ''
 
     if (typeof target !== typeof input) {
-      if (!input) return undefined // input is null or undefined
-      if (isRoot || isArray) return undefined
-      if (typeof target !== typeof input && !isRoot) throw new Error('different type')
+      if (isArray) throw new Error('different type')
+      return undefined
     } else {
       return input
     }

@@ -24,6 +24,9 @@ describe('object-manipulator', () => {
         ]
       },
       d: 'a',
+      e: [
+        { e1: 1, e2: 'a'}
+      ],
       f: {
         f1: 1,
         f2: 'a',
@@ -56,6 +59,9 @@ describe('object-manipulator', () => {
         ]
       },
       d: 1, // remove because different type
+      e: [
+        { e1: 1, e2: 1}
+      ],
       f: {
         f1: 1,
         f2: null, // remove because null
@@ -71,13 +77,14 @@ describe('object-manipulator', () => {
     expect(matchedObject['c']['c1']).to.equal(1)
     expect(matchedObject['c']['c2']).to.equal(undefined)
     expect(matchedObject['c']['c4']).to.be.instanceOf(Array)
-    expect(matchedObject['c']['c5']).to.equal(undefined)
+    expect(matchedObject['c']).to.not.have.property('c5')
     expect(matchedObject['c']['c6'][0]['c61']).to.equal(1)
     expect(matchedObject['c']['c6'][0]['c62']).to.equal(undefined)
     expect(matchedObject['c']['c6'][0]).to.not.have.property('c63')
     expect(matchedObject['c']).to.not.have.property('c5')
     expect(matchedObject['c']).to.not.have.property('c3')
     expect(matchedObject).to.not.have.property('d')
+    expect(matchedObject['e'][0]).to.not.have.property('e2')
     expect(matchedObject['f']).to.not.have.property('f2')
   })
 
