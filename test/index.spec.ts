@@ -23,7 +23,12 @@ describe('object-manipulator', () => {
           }
         ]
       },
-      d: 'a'
+      d: 'a',
+      f: {
+        f1: 1,
+        f2: 'a',
+        f3: 'a',
+      }
     }
 
     const inputObject = {
@@ -50,7 +55,13 @@ describe('object-manipulator', () => {
           }
         ]
       },
-      d: 1 // remove because different type
+      d: 1, // remove because different type
+      f: {
+        f1: 1,
+        f2: null, // remove because null
+        f3: 'a',
+      }
+
     }
 
     const matchedObject: any = matchTargetKeys(targetObject, inputObject)
@@ -67,6 +78,7 @@ describe('object-manipulator', () => {
     expect(matchedObject['c']).to.not.have.property('c5')
     expect(matchedObject['c']).to.not.have.property('c3')
     expect(matchedObject).to.not.have.property('d')
+    expect(matchedObject['f']).to.not.have.property('f2')
   })
 
   it('should matchTargetKeys from calendar raw input properly', () => {
