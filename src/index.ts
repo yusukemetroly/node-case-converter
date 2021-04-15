@@ -13,7 +13,7 @@ export function matchTargetKeys (target: any, input: any, nest: string[] = []): 
     } catch (error) {
       return undefined
     }
-  } else if (_.isObject(target) && _.isObject(input)) {
+  } else if (_.isPlainObject(target) && _.isPlainObject(input)) {
     try {
       const keys = Object.keys(target)
       const picked = _.pick(input, keys) as any
@@ -52,7 +52,7 @@ export function snakeCase (object: any) {
     if (_.isArray(obj)) {
       return obj.map(innerObj => mapKeysDeep(innerObj, cb));
     }
-    else if (_.isObject(obj)) {
+    else if (_.isPlainObject(obj)) {
       return _.mapValues(
         _.mapKeys(obj, cb),
         val => mapKeysDeep(val, cb),
@@ -72,7 +72,7 @@ export function camelCase (object: any) {
     if (_.isArray(obj)) {
       return obj.map(innerObj => mapKeysDeep(innerObj, cb));
     }
-    else if (_.isObject(obj)) {
+    else if (_.isPlainObject(obj)) {
       return _.mapValues(
         _.mapKeys(obj, cb),
         val => mapKeysDeep(val, cb),
